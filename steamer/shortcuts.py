@@ -36,11 +36,23 @@ class SteamShortcut:
     def directory(self):
         return self.values['StartDir']
 
+    def get_dict(self):
+        return self.values
+
 
 class SteamShortcutsFile:
     def __init__(self, path):
         with open(find_shortcuts_vdf(), 'rb') as file:
+            self.path = path
             self.data = vdf.binary_load(file)
+
+    def add_shortcut(self, shortcut):
+        index = len(self.data['shortcuts'])
+        self.data['shortcuts'][str(index)] = shortcut.get_dict()
+
+    def write_out(self):
+        with open(self.path, 'wb') as file:
+            vdf.binary_dump(self.data, file)
 
 
 def find_file(name, path):
