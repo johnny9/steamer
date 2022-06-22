@@ -25,7 +25,7 @@ class SteamShortcut:
         self.values['DevkitOverrideAppID'] = 0
         self.values['LastPlayTime'] = 0
         self.values['FlatpakAppID'] = ''
-        self.values['tags'] = []
+        self.values['tags'] = dict()
 
     def name(self):
         return self.values['AppName']
