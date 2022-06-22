@@ -1,12 +1,15 @@
 import vdf
 import pathlib
 import os
+import binascii
 
 
 class SteamShortcut:
     def __init__(self, name, target, directory):
         self.values = dict()
-        self.values['appid'] = 0
+        self.values['appid'] = binascii.crc32(str.encode(target + name)) | 0x80000000
+        if self.values['appid'] >= 2**31:
+            self.values['appid'] -= 2**32
         self.values['AppName'] = name
         self.values['Exe'] = target
         self.values['StartDir'] = directory
