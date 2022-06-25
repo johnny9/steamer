@@ -1,4 +1,5 @@
 import urllib.request
+import shutil
 
 BIG_PICTURE_URL = 'https://cdn.akamai.steamstatic.com/steam/apps/{steamid}/header.jpg'
 BIG_PICTURE_PATH = '{shortcutid}.{extension}'
@@ -19,3 +20,11 @@ def download_assets_for_steamid(steamid):
                                "logo.jpg")
     urllib.request.urlretrieve(COVERART_URL.format(steamid=steamid),
                                "coverart.jpg")
+
+
+def copy_to_grid_folder(userid, shortcutid):
+    grid_directory = '~/.steam/steam/userdata/{}}/config/grid/'.format(userid)
+    shutil.copyfile('bigpicture.jpg', grid_directory + BIG_PICTURE_PATH.format(shortcutid=shortcutid, extension='jpg'))
+    shutil.copyfile('logo.jpg', grid_directory + LOGO_PATH.format(shortcutid=shortcutid, extension='jpg'))
+    shutil.copyfile('background.jpg', grid_directory + BACKGROUND_PATH.format(shortcutid=shortcutid, extension='jpg'))
+    shutil.copyfile('coverart.jpg', grid_directory + COVERART_PATH.format(shortcutid=shortcutid, extension='jpg'))
