@@ -2,12 +2,14 @@ import sys
 import argparse
 
 
-def parse_args(arguments):
-    parser = argparse.ArgumentParser(prog='steamer',
+parser = argparse.ArgumentParser(prog='steamer',
                                      description="Create a Steam shortcut")
-    parser.add_argument('name', help='Name for the shortcut')
-    parser.add_argument('target', help='Path to program/game to run')
-    parser.parse_args(arguments)
+subparses = parser.add_subparsers()
+shortcut_parser = subparses.add_parser('addshortcut')
+shortcut_parser.add_argument('name', help='Name for the shortcut')
+shortcut_parser.add_argument('target', help='Path to program/game to run')
 
+shortcut_parser = subparses.add_parser('downloadartwork')
+shortcut_parser.add_argument('appid', help='Steam appid to download artwork from')
 
-parse_args(sys.argv)
+parser.parse_args()
