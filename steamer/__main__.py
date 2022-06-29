@@ -10,9 +10,9 @@ def add_shortcut(args):
     full_path = os.path.abspath(args.target)
     new_shortcut = shortcuts.SteamShortcut(args.name,
                                            full_path,
-                                           os.getcwd(),
-                                           args.directory)
+                                           os.getcwd())
     shortcuts_file.add_shortcut(new_shortcut)
+    shortcuts_file.write_out()
 
 
 def download_artwork(args):
@@ -32,5 +32,6 @@ download_parser.add_argument('appid', help='Steam appid to download artwork from
 download_parser.set_defaults(func=download_artwork)
 
 args = parser.parse_args()
+args.func(args)
 
 

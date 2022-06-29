@@ -62,8 +62,8 @@ def find_file(name, path):
 
 
 def find_shortcuts_vdf():
-    steam_path = pathlib.Path.home() / '.steam'
-    return find_file('shortcuts.vdf', steam_path.resolve())
+    steam_path = os.path.join(os.path.expanduser("~"), '.steam', 'steam')
+    return find_file('shortcuts.vdf', steam_path)
 
 
 def load_steam_shortcuts():
