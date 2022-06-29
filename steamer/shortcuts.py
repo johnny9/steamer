@@ -54,6 +54,16 @@ class SteamShortcutsFile:
         with open(self.path, 'wb') as file:
             vdf.binary_dump(self.data, file)
 
+    def get_id_from_name(self, name):
+        for shortcut_index in self.data['shortcuts']:
+            shortcut = self.data['shortcuts'][shortcut_index]
+            if shortcut['AppName'] == name:
+                return shortcut['appid'] + 2**32
+        return None
+
+    def __str__(self):
+        return vdf.dumps(self.data, pretty=True)
+
 
 def find_file(name, path):
     for root, dirs, files in os.walk(path):
