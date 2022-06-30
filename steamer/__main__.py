@@ -1,6 +1,5 @@
 from . import shortcuts
 from . import artwork
-import sys
 import argparse
 import os
 
@@ -13,6 +12,9 @@ def add_shortcut(args):
                                            os.getcwd())
     shortcuts_file.add_shortcut(new_shortcut)
     shortcuts_file.write_out()
+
+    if args.grid:
+        artwork.link_artwork_to_users(new_shortcut.appid())
 
 
 def download_artwork(args):
@@ -31,6 +33,8 @@ subparses = parser.add_subparsers()
 shortcut_parser = subparses.add_parser('addshortcut')
 shortcut_parser.add_argument('name', help='Name for the shortcut')
 shortcut_parser.add_argument('target', help='Path to program/game to run')
+shortcut_parser.add_argument('--grid', help='Add grid artwork', required=False,
+                             action='store_true', default=False)
 shortcut_parser.set_defaults(func=add_shortcut)
 
 download_parser = subparses.add_parser('downloadartwork')

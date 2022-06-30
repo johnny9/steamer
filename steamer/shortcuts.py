@@ -39,6 +39,11 @@ class SteamShortcut:
     def get_dict(self):
         return self.values
 
+    def appid(self):
+        if self.values['appid'] < 0:
+            return self.values['appid'] + 2**32
+        return self.values['appid']
+
 
 class SteamShortcutsFile:
     def __init__(self, path):
