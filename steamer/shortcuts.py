@@ -1,7 +1,12 @@
 import vdf
-import pathlib
 import os
 import binascii
+import shutil
+
+
+STEAM_PATH = os.path.join(os.path.expanduser("~"), '.steam', 'steam')
+CONFIG_FILE = os.path.join(STEAM_PATH, 'config', 'config.vdf')
+CONFIG_BACKUP = os.path.join(CONFIG_FILE, '.bak')
 
 
 class SteamShortcut:
@@ -77,10 +82,24 @@ def find_file(name, path):
 
 
 def find_shortcuts_vdf():
-    steam_path = os.path.join(os.path.expanduser("~"), '.steam', 'steam')
-    return find_file('shortcuts.vdf', steam_path)
+    return find_file('shortcuts.vdf', STEAM_PATH)
 
 
 def load_steam_shortcuts():
     return SteamShortcutsFile(find_shortcuts_vdf())
 
+
+def add_proton_to_shortcut(shortcutid):
+    shutil.copyfile(CONFIG_FILE, CONFIG_BACKUP)
+    with open(CONFIG_FILE) as file:
+        data = vdf.load(file)
+
+    if data is not None:
+        data['InstallConfigStore']['Software']['Valve']['Steam']['CompatToolMapping'][shortcutid] = {
+            'name': 'proton_experimental',
+            'config': '',
+            'priority': '250',
+        }
+
+    with open(CONFIG_FILE, 'wb') as file:
+        vdf.dump(data, file, pretty=True)
