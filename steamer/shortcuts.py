@@ -16,8 +16,8 @@ class SteamShortcut:
         if self.values['appid'] >= 2**31:
             self.values['appid'] -= 2**32
         self.values['AppName'] = name
-        self.values['Exe'] = target
-        self.values['StartDir'] = directory
+        self.values['Exe'] = '"' + target + '"'
+        self.values['StartDir'] = '"' + directory + '"'
         icon_path = os.path.join(os.path.dirname(target), 'icon.png')
         if os.path.exists(icon_path):
             self.values['icon'] = icon_path
