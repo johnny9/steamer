@@ -18,7 +18,11 @@ class SteamShortcut:
         self.values['AppName'] = name
         self.values['Exe'] = target
         self.values['StartDir'] = directory
-        self.values['icon'] = ''
+        icon_path = os.path.join(os.path.dirname(target), 'icon.png')
+        if os.path.exists(icon_path):
+            self.values['icon'] = icon_path
+        else:
+            self.values['icon'] = ''
         self.values['ShortcutPath'] = ''
         self.values['LaunchOptions'] = ''
         self.values['IsHidden'] = 0
@@ -43,6 +47,9 @@ class SteamShortcut:
 
     def get_dict(self):
         return self.values
+
+    def set_icon_path(self, path):
+        self.values['icon'] = path
 
     def appid(self):
         if self.values['appid'] < 0:
