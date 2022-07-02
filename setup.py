@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(name='steamer',
       version='0.1',
-      py_modules=['steamer'],
+      packages=['steamer'],
       install_requires=[
             'vdf',
       ],
