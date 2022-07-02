@@ -6,7 +6,7 @@ import shutil
 
 STEAM_PATH = os.path.join(os.path.expanduser("~"), '.steam', 'steam')
 CONFIG_FILE = os.path.join(STEAM_PATH, 'config', 'config.vdf')
-CONFIG_BACKUP = os.path.join(CONFIG_FILE, '.bak')
+CONFIG_BACKUP = CONFIG_FILE + '.bak'
 
 
 class SteamShortcut:
@@ -102,11 +102,17 @@ def add_proton_to_shortcut(shortcutid):
         data = vdf.load(file)
 
     if data is not None:
-        data['InstallConfigStore']['Software']['Valve']['Steam']['CompatToolMapping'][shortcutid] = {
-            'name': 'proton_experimental',
-            'config': '',
-            'priority': '250',
-        }
+        steam_config = data['InstallConfigStore']['Software']['Valve']['Steam']
+        if 'CompatToolMapping' not in steam_config:
+            steam_config['CompatToolMapping'] = {}
 
-    with open(CONFIG_FILE, 'wb') as file:
-        vdf.dump(data, file, pretty=True)
+        if shortcutid not in steam_config['CompatToolMapping']:
+            steam_config['CompatToolMapping'][shortcutid] = {
+                'name': 'proton_experimental',
+                'config': '',
+                'priority': '250',
+            }
+
+            with open(CONFIG_FILE, 'w') as file:
+                vdf.dump(data, file, pretty=True)
+                print("Wrote config")

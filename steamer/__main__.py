@@ -13,6 +13,8 @@ def add_shortcut(args):
     shortcuts_file.add_shortcut(new_shortcut)
     shortcuts_file.write_out()
 
+    shortcuts.add_proton_to_shortcut(new_shortcut.appid())
+
     if args.steamid is not None:
         artwork.download_assets_for_steamid(args.steamid)
 
