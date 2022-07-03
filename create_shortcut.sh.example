@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if ! [ -x "$(command -v pip3ss)" ]; then
+    wget https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py && python /tmp/get-pip.py --user
+fi
+
+python3 -m pip install --force-reinstall --user git+https://github.com/johnny9/steamer.git
+python3 -m steamer addshortcut --grid "MyGame" ./MyGame.exe
