@@ -6,4 +6,5 @@ setup(name='steamer',
       install_requires=[
             'vdf',
       ],
+      scripts=['bin/steamer'],
       )
