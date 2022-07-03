@@ -65,6 +65,9 @@ class SteamShortcutsFile:
 
     def add_shortcut(self, shortcut):
         index = len(self.data['shortcuts'])
+        for old_index in self.data['shortcuts']:
+            if self.data['shortcuts'][old_index]['appid'] == shortcut.get_dict()['appid']:
+                index = old_index
         self.data['shortcuts'][str(index)] = shortcut.get_dict()
 
     def write_out(self):
