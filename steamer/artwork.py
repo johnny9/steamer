@@ -29,7 +29,6 @@ def link_artwork_to_users(shortcutid):
         grid_directory = os.path.join(userdata_folder, userid, 'config', 'grid/')
         if not os.path.exists(grid_directory):
             os.makedirs(grid_directory)
-        print(grid_directory + BIG_PICTURE_PATH.format(shortcutid=shortcutid, extension='jpg'))
         shutil.copyfile('bigpicture.jpg', os.path.join(grid_directory, BIG_PICTURE_PATH.format(shortcutid=shortcutid)))
         shutil.copyfile('logo.jpg', os.path.join(grid_directory, LOGO_PATH.format(shortcutid=shortcutid)))
         shutil.copyfile('background.jpg', os.path.join(grid_directory, BACKGROUND_PATH.format(shortcutid=shortcutid)))

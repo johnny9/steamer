@@ -118,4 +118,3 @@ def add_proton_to_shortcut(shortcutid):
 
             with open(CONFIG_FILE, 'w') as file:
                 vdf.dump(data, file, pretty=True)
-                print("Wrote config")
